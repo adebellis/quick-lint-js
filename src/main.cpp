@@ -31,6 +31,7 @@
 #include <quick-lint-js/parse-visitor.h>
 #include <quick-lint-js/parse.h>
 #include <quick-lint-js/text-error-reporter.h>
+#include <quick-lint-js/translation.h>
 #include <quick-lint-js/unreachable.h>
 #include <quick-lint-js/vector.h>
 #include <quick-lint-js/vim-qflist-json-error-reporter.h>
@@ -100,6 +101,10 @@ void print_help_message();
 
 int main(int argc, char **argv) {
   quick_lint_js::vector_instrumentation::register_dump_on_exit_if_requested();
+  // @@@ don't hard-code
+  static constexpr const char *gettext_localedir =
+      "/home/strager/Projects/quicklint-js/po/compiled";
+  quick_lint_js::initialize_translations_from_environment(gettext_localedir);
 
   quick_lint_js::options o = quick_lint_js::parse_options(argc, argv);
   if (o.help) {

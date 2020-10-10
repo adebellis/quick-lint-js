@@ -139,6 +139,14 @@
 #endif
 #endif
 
+#if !defined(QLJS_HAVE_SETENV)
+#if defined(_POSIX_VERSION) && _POSIX_VERSION >= 200112L
+#define QLJS_HAVE_SETENV 1
+#else
+#define QLJS_HAVE_SETENV 0
+#endif
+#endif
+
 #if !defined(QLJS_HAVE_SETRLIMIT)
 #if (defined(_POSIX_VERSION) && _POSIX_VERSION >= 200809L) || \
     (defined(__APPLE__) && defined(_POSIX_VERSION) &&         \
@@ -201,6 +209,14 @@
 #endif
 #if !defined(QLJS_HAVE_DEBUGBREAK)
 #define QLJS_HAVE_DEBUGBREAK 0
+#endif
+
+#if !defined(QLJS_HAVE_SETENVIRONMENTVARIABLE)
+#if defined(_WIN32)
+#define QLJS_HAVE_SETENVIRONMENTVARIABLE 1
+#else
+#define QLJS_HAVE_SETENVIRONMENTVARIABLE 0
+#endif
 #endif
 
 #if !defined(QLJS_HAVE_BUILTIN_TRAP)
