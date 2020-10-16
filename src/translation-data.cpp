@@ -17,6 +17,7 @@
 // This file is **GENERATED** by tools/compile-translations.
 
 #include <cstdint>
+#include <quick-lint-js/locale.h>
 #include <quick-lint-js/translation-data.h>
 
 namespace quick_lint_js {
@@ -132,7 +133,7 @@ const std::uint8_t language_0[] = {
 // clang-format on
 }
 
-const gmo_file_ptr gmo_files[] = {
+const locale_entry<const std::uint8_t *> gmo_files[] = {
     {
         .locale = "en@loud",
         .data = language_0,

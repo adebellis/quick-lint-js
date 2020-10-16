@@ -18,5 +18,5 @@
 #include <quick-lint-js/locale.h>
 
 namespace quick_lint_js {
-extern const gmo_file_ptr gmo_files[];
+extern const locale_entry<const std::uint8_t*> gmo_files[];
 }

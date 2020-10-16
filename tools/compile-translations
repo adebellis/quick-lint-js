@@ -57,6 +57,7 @@ locales="$(printf '%s\n' ${locales} | LC_ALL=C sort)"
   printf '// This file is **GENERATED** by tools/compile-translations.\n'
   printf '\n'
   printf '#include <cstdint>\n'
+  printf '#include <quick-lint-js/locale.h>\n'
   printf '#include <quick-lint-js/translation-data.h>\n'
   printf '\n'
   printf 'namespace quick_lint_js {\n'
@@ -77,7 +78,7 @@ locales="$(printf '%s\n' ${locales} | LC_ALL=C sort)"
   printf '\n'
 
   i=0
-  printf 'const gmo_file_ptr gmo_files[] = {\n'
+  printf 'const locale_entry<const std::uint8_t *> gmo_files[] = {\n'
   for locale in ${locales} ; do
     printf '    {\n'
     printf '        .locale = "%s",\n' "${locale}"

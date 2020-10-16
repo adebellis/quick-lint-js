@@ -34,8 +34,6 @@ struct locale_entry {
   }
 };
 
-using gmo_file_ptr = locale_entry<const std::uint8_t*>;
-
 template <class T>
 const locale_entry<T>* find_locale_entry(const locale_entry<T>* files,
                                          const char* locale_name);
