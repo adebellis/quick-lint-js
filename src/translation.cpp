@@ -18,8 +18,11 @@
 #include <clocale>
 #include <cstring>
 #include <libintl.h>
+#include <optional>
 #include <quick-lint-js/assert.h>
+#include <quick-lint-js/gmo.h>
 #include <quick-lint-js/have.h>
+#include <quick-lint-js/translation-data.h>
 #include <quick-lint-js/translation.h>
 
 #if QLJS_HAVE_SETENV
@@ -34,16 +37,22 @@ namespace quick_lint_js {
 namespace {
 constexpr const char gettext_domain[] = "quick-lint-js";
 
+std::optional<gmo_parser> g_m_o; // @@@ name. plz.
 bool initialized_translations = false;
 
-void initialize_translations_from_environment_unsafe(const char* locale_dir) {
-  if (!std::setlocale(LC_ALL, "")) {
+void initialize_translations_from_environment_unsafe(const char* ) {
+  // @@@ delete locale_dir
+  const char* locale = std::setlocale(LC_ALL, "");
+  if (!locale) {
     std::fprintf(stderr, "warning: failed to set locale: %s\n",
                  std::strerror(errno));
+    return;
   }
-  if (!::bindtextdomain(gettext_domain, locale_dir)) {
-    std::fprintf(stderr, "warning: failed to set translations directory: %s\n",
-                 std::strerror(errno));
+  const locale_entry<const std::uint8_t *> *gmo_file = find_locale_entry(gmo_files, locale);
+  if (gmo_file) {
+    g_m_o = gmo_parser(gmo_file->data, static_cast<std::size_t>(-1));
+  } else {
+    g_m_o = std::nullopt;
   }
   initialized_translations = true;
 }

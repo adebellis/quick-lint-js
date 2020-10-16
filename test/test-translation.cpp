@@ -105,7 +105,7 @@ TEST_F(test_translation, c_language_does_not_translate_diagnostics) {
 }
 
 TEST_F(test_translation,
-       DISABLED_english_loud_language_upper_cases_base) {  // @@@
+       english_loud_language_upper_cases_base) {  // @@@
   // @@@ check all
   initialize_translations_from_locale(QLJS_LOCALE_DIR, "en.utf8@loud");
   this->reporter.report(error_unexpected_hash_character{this->dummy_span()});
